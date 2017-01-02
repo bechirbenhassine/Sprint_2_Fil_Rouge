@@ -47,7 +47,7 @@ for(i in 5:dim(file_re_mod)[1]) {
     }
     else {
       k=j
-      }
+    }
   }
   index[i-4]=k
 }
@@ -62,7 +62,7 @@ for (i in 2:dim(file_re_re_mod)[1]) {
     file_re_re_mod[i,j]<-draftrow[j+3*(i-1)]
   }
   for (k in (dim(file_re_re_mod)[2]-(3*(i-1))+1):dim(file_re_re_mod)[2]) {
-    file_re_re_mod[i,k]<-0
+    file_re_re_mod[i,k]<-NA
   }
 }
 #Second view of the matrix
@@ -93,7 +93,7 @@ for (i in 1:dim(file_re_re_mod_del_year)[1]) {
 }
 for (i in 1:dim(file_re_re_mod_del_year)[1]) {
   for (j in 1:dim(file_re_re_mod_del_year)[2]) {
-    if ((nchar(colnames(file_re_re_mod_del_year)[j])!=1)==TRUE) {
+    if ((nchar(colnames(file_re_re_mod_del_year)[j])==1)==FALSE) {
       file_re_re_mod_del_year<-file_re_re_mod_del_year[,-j]
     }
   }
@@ -101,3 +101,68 @@ for (i in 1:dim(file_re_re_mod_del_year)[1]) {
 #Fourth view of the matrix
 submit <- data.frame(file_re_re_mod_del_year)
 write.xlsx(submit, file = "fourth_view.xlsx")
+#Turn the data to cumulative paid claims
+file_re_re_mod_del_year_cum<-file_re_re_mod_del_year
+k=0
+for (i in 1:(dim(file_re_re_mod_del_year_cum)[1]-1)) {
+  for (j in 2:(dim(file_re_re_mod_del_year_cum)[2]-k)) {
+    file_re_re_mod_del_year_cum[i,j]<-file_re_re_mod_del_year_cum[i,j]+file_re_re_mod_del_year_cum[i,j-1]
+  }
+  k=k+1
+}
+#Fifth view of the matrix
+submit <- data.frame(file_re_re_mod_del_year_cum)
+write.xlsx(submit, file = "fifth_view.xlsx")
+#Estimation with chain ladder method
+install.packages('ChainLadder')
+library(ChainLadder)
+file_re_re_mod_del_year_cum_est<-file_re_re_mod_del_year_cum
+n=ncol(file_re_re_mod_del_year_cum_est)
+L=rep(NA,n-1)
+for(j in 1:(n-1)){
+  L[j]=sum(file_re_re_mod_del_year_cum[1:(n-j),j+1])/sum(file_re_re_mod_del_year_cum[1:(n-j),j])
+  file_re_re_mod_del_year_cum_est[(n-j+1):n,j+1]=L[j]*file_re_re_mod_del_year_cum_est[(n-j+1):n,j]
+}
+estimation<-as.matrix(file_re_re_mod_del_year_cum_est)
+dimnames(estimation)[1]
+dimnames(estimation) <- list(origin=rownames(estimation), dev=1:ncol(estimation))
+estimation <- as.triangle(estimation)
+plot(estimation)
+#Sixth view of the matrix
+submit <- data.frame(file_re_re_mod_del_year_cum_est)
+write.xlsx(submit, file = "sixth_view.xlsx")
+#Plotting developments for cumulative data
+file_re_re_mod_del_year_cum_mat<-as.matrix(file_re_re_mod_del_year_cum)
+dimnames(file_re_re_mod_del_year_cum_mat)[1]
+dimnames(file_re_re_mod_del_year_cum_mat) <- list(origin=rownames(file_re_re_mod_del_year_cum_mat), dev=1:ncol(file_re_re_mod_del_year_cum_mat))
+file_re_re_mod_del_year_cum_mat <- as.triangle(file_re_re_mod_del_year_cum_mat)
+plot(file_re_re_mod_del_year_cum_mat)
+plot(file_re_re_mod_del_year_cum_mat,lattice=TRUE)
+#Mackchainladder
+M <- MackChainLadder(file_re_re_mod_del_year_cum_mat, est.sigma = "Mack")
+M
+#Switch to an incremental data
+file_re_re_mod_del_year_cum_mat_inc <- cum2incr(file_re_re_mod_del_year_cum_mat)
+plot(file_re_re_mod_del_year_cum_mat_inc)
+plot(file_re_re_mod_del_year_cum_mat_inc,lattice=TRUE)
+#Case in which we can suppose that  the oldest origin year is not fully developed
+dev_periode <- 1:7
+plot(log(L-1) ~ dev_periode, main="Extrapollation Log-Linéaire des facteurs")
+modele <- lm(log(L-1) ~ dev_periode)
+abline(modele)
+coeff <- coef(modele)
+## extrapolate another 100 dev. period
+extrap <- exp(coeff[1] + c(8:(8 + 100)) * coeff[2]) + 1
+L_extrap <- prod(extrap)
+L_extrap
+plot(100*(rev(1/cumprod(rev(c(L, extrap[extrap>1.0001]))))), t="b",
+        main="Modèle de développement des sinistres attendus",
+        xlab="Période de développement", ylab="Développement en % de la perte finale")
+#Triangle par extrapollation
+L1 <- c(L, L_extrap)
+file_re_re_mod_del_year_cum_extrap <- cbind(file_re_re_mod_del_year_cum, final = rep(0, 8))
+for(i in 1:8){
+  file_re_re_mod_del_year_cum_extrap[(8-i+1):n, i+1] <- file_re_re_mod_del_year_cum_extrap[(8-i+1):8,i]*L1[i]
+}
+round(file_re_re_mod_del_year_cum_extrap)
+sum(file_re_re_mod_del_year_cum_extrap[ ,9] - getLatestCumulative(as.matrix(file_re_re_mod_del_year_cum)))
