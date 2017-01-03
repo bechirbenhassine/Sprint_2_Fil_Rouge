@@ -35,7 +35,7 @@
 #### Vocabulaire, explication des concepts
 ###### Caracteristique d'une option d'achat (Call)
 
-* Le premium est le prix de l'option
+* Le __premium__ est le prix de l'option
 * Date d’échéance du contrat __T__
 * Actif sous jacent dont le cours est noté __(St)t∈[0,T]__
 * Prix d’exercice (strike) __K__ auquel on peut acheter une unité (en général plusieurs) de sous jacent.
@@ -57,15 +57,14 @@
 * __en dehors de la monnaie__ ou __out the money__ si __ST<K__
 
   le détenteur de l’option a intérêt à ne pas l’exercer.
-  Le bénéfice va être de 0. Mais plutôt deficit car il va percevoir -> -__Premium__-__(ST-K)
+  Le bénéfice va être de 0. Mais plutôt deficit car il va percevoir -> -__Premium-(ST-K)__
 
 * __Le payoff noté T__
 Au final, le flux de trésorerie en
-T = Max(ST−K,0)
+__T = Max(ST−K,0)__
 
 #### Conclusion partie théorie des options
 
   Pour l'instant je clos cette partie à ce niveau la bien qu'il reste encore beaucoup de choses à savoir à propos des options, nottement sur le profit lié à l'achat ou la vente d'une option (call ou put), mais pour l'instant, c'est suffisant pour comprendre l'analyse du set de données soumis à notre étude dans la partie qui va suivre.
 
 ### Préparation, manipulation et observation des données :
- 
