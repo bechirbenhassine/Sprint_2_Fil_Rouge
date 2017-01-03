@@ -68,3 +68,7 @@ __T = Max(ST−K,0)__
   Pour l'instant je clos cette partie à ce niveau la bien qu'il reste encore beaucoup de choses à savoir à propos des options, nottement sur le profit lié à l'achat ou la vente d'une option (call ou put), mais pour l'instant, c'est suffisant pour comprendre l'analyse du set de données soumis à notre étude dans la partie qui va suivre.
 
 ### Préparation, manipulation et observation des données :
+
+#### Les données :
+
+![donnes view](/screenshots/basic-data-view.png)
