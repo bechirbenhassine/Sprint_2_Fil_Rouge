@@ -1,0 +1,25 @@
+Travaux de Anir :
+
+
+-Rajouter une partie descriptive des données (descriptions de ce qui a été mis en colonnes et en lignes ainsi que les données présentées)
+-Rajouter une partie pour la visualisation des données (présenter la volatilité implicite en fonction du strike (en lignes) tout en fixant à chaque fois la maturité (en colonne), présenter une superposition des graphes, présenter la volatilité implicite pour des options a un strike donnée et en faisant varier la maturité)
+-Rajouter une partie pour analyser les graphes et les données (voir que la volatilité implicite augmentait quant le strike s'éloignait du prix de marché du sous-jacent)
+-Rajouter peut-être une partie pour enrichir l'analyse (essayer de déduire le prix de l'option à partir de la formule de pricing de Black-Scholes en fixant le taux sans risque ainsi que le prix du sous-jacent : peut être prendre deux cas le premier où X(prix du SJ)>S(strike) et le cas inverse.Mettre en exergue les stratégies de couvertures possibles : parler de delta et vega)
+-Rajouter une partie d'analyse (remarquer que le prix de l'option augmente avec la volatilité implicite)
+
+Quelques liens : 
+http://fr.slideshare.net/mimilatun/le-modle-de-black-scholes
+http://www.theresearchkitchen.com/archives/106
+http://www.cmap.polytechnique.fr/~elkaroui/masterfin034.pdf
+
+
+Travaux de Mamadou :
+
+-Peux-tu nous fournir le fichier Excel sur lequel tu as fait tes analyses ?
+-Tu parles dans le rapport de table de survie déduite des données. En fait, faut être vigilent au fait que c'est une table de mortalité et invalidité et non mortalité (éclaircir ce qu'est la différence entre cette table et la table de mortalité)
+-Rajouter une partie expliquant de ce que c'est l'invalidité.
+-J'arrive pas à cerner la logique derrière le truc en glm ? Tes variables expliquatives expliques quoi au juste ?
+-Rajouter une partie sur ce qu'on a vu en cours par exemple estimateur de kaplan-meyer pour l'invalidité par exemple et faire des analyses par rapport à l'âge et l'ancienneté, etc.
+
+Un lien qui peut-être très utile :
+http://www.ressources-actuarielles.net/EXT/ISFA/fp-isfa.nsf/34a14c286dfb0903c1256ffd00502d73/a0d8fe4a9807886ac1257d11002a0be9/$FILE/presentation.pdf
