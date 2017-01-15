@@ -26,8 +26,16 @@ reg_sin <- as.data.frame(t(reg_sin))
 prov    <- as.data.frame(t(prov   ))
 prime   <- as.data.frame(t(prime  ))
 #Changing columns names from Vi into periods added
-for(i in 1:dim(file6)[2]) {
-  names(file6)[i]<-file6[1,i]
+for(i in 1:dim(reg_sin)[2]) {
+  names(reg_sin)[i]<-reg_sin[1,i]
+}
+
+for(i in 1:dim(prov)[2]) {
+  names(prov)[i]<-prov[1,i]
+}
+
+for(i in 1:dim(prime)[2]) {
+  names(prime)[i]<-prime[1,i]
 }
 #Deleting the first line as it was set as columns names
 file6<-file6[-1,]
