@@ -67,8 +67,67 @@ __T = Max(ST−K,0)__
 
   Pour l'instant je clos cette partie à ce niveau la bien qu'il reste encore beaucoup de choses à savoir à propos des options, nottement sur le profit lié à l'achat ou la vente d'une option (call ou put), mais pour l'instant, c'est suffisant pour comprendre l'analyse du set de données soumis à notre étude dans la partie qui va suivre.
 
-### Préparation, manipulation et observation des données :
+### Préparation, manipulation et observation des données
 
-#### Les données :
+#### Les données
 
 ![donnes view](/screenshots/basic-data-view.png)
+
+  On peut observer sur ce tableau la volatilité implicite d'options en fonction du prix de leur strike, ainsi que le niveau de maturité de chaque contrat .
+
+  * En colonne ( colonne verte ) : Prix du strike, qui va de 800 à 10 000
+  * En ligne (ligne jaune ) : niveau de maturité de l'option allant de 25 à 0.3 années avant maturité
+  * Dans les cellules (cellules blanches) : Se trouve la volatilité implicite des options
+#### Analyse des données
+
+##### Etude de l'evolution de laa volatilité implicite de l'option, en fonction de la maturité (strike fixé)
+
+on remarque que lorsque le strike est low (entre 800 et 1400) , la vola implicite decroit au fur et a mesure qu'on remonte dans la maturité et reste plus ou moins stable aux alentours de 0.40
+![screen1](/screenshots/screen1.png)
+
+a partir du strike 1500 jusqu'a à 2600 la vola implicite descends autour des 0.30 et puis commence à avoir un mouvement assez volatile en fonction de la maturité
+![screen2](/screenshots/screen2.png)
+
+
+a partir du strike 2700 jusqu'à 3000 on observe une stabilisation de la volatilité implicite qui a tendance à correler positivement avec la maturité de l'option. va de 0.22 et va stagner aux environs de 0.30
+![screen3](/screenshots/screen3.png)
+
+entre 3800 et 6000 on observe encore une fois un mouvement qui n'est pas stable, autour d'une maturité implicite qui se situe autour des 0.28 cette fois ci .
+![screen4](/screenshots/screen4.png)
+
+###### mot de la fin
+Globalement on peut observer que la volatilité implicite atteint toujours un pic lorsque'elle a bientôt atteint sa maturité finale (lorsque elle arrive a bout de maturité, c'est à dire entre 0.3 et 2.3ans), et que pour certains strike la volatilité implicite a tendance a virvolter tandis que pour d'autre elle se stabilise.
+
+
+##### Constatation de la formation du smile de volatilité
+
+En fixant la maturité et en faisant evoluer le strike, on peut observer les "smile" de volatilité.
+Ce terme désigne l'effet d'une augmentation de la volatilité implicite d'une option au fur et à mesure que son prix
+d'exercice est éloigné du prix du sous-jacent, représenté graphiquement sous forme d'une courbe mettant en relation
+les prix d'exercice d'une série d'options avec la même échéance et le même sous-jacent, et leur volatilité implicite
+respective.
+
+![screen5](/screenshots/screen5.png)
+
+
+##### Estimation sur le prix du sous jacent de l'option
+
+N'ayant aucune information sur le type d'option, le sous jacent en question ainsi que son prix, nous nous somme basés sur le minimum qu'atteint la courbe de smile de volatilité pour donner une estimation du prix,
+car on prend le point ou la volatilité est le moins elevé pour une maturité donnée, qui veut dire que c'est le point ou le sous jacent est le moins eloigné de son prix veridique et on obtiens les resultats suivants :
+
+
+ "Price :3000 euros  - Maturity : 0,3"
+ "Price :3800 euros  - Maturity : 1,3"
+ "Price :3800 euros  - Maturity : 2,3"
+ "Price :4000 euros  - Maturity : 3,3"
+ "Price :4400 euros  - Maturity : 4,3"
+ "Price :4000 euros  - Maturity : 5,3"
+ "Price :5000 euros  - Maturity : 6,3"
+ "Price :4400 euros  - Maturity : 7,3"
+ "Price :4400 euros  - Maturity : 8,3"
+ "Price :4400 euros  - Maturity : 9,3"
+ "Price :4000 euros  - Maturity : 15"
+ "Price :4000 euros  - Maturity : 20"
+ "Price :3800 euros  - Maturity : 25"
+
+On peut alors supposer que le prix du sous jacent est compris entre 3800 et 4000 euros, et qu'on traite bien un seul sous jacent avec differents strikes
