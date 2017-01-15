@@ -138,12 +138,12 @@ reg_sin_cum <- as.triangle(reg_sin_cum)
 plot(reg_sin_cum)
 plot(reg_sin_cum,lattice=TRUE)
 #Mackchainladder
-M <- MackChainLadder(file_re_re_mod_del_year_cum_mat, est.sigma = "Mack")
+M <- MackChainLadder(reg_sin_cum, est.sigma = "Mack")
 M
 #Switch to an incremental data
-file_re_re_mod_del_year_cum_mat_inc <- cum2incr(file_re_re_mod_del_year_cum_mat)
-plot(file_re_re_mod_del_year_cum_mat_inc)
-plot(file_re_re_mod_del_year_cum_mat_inc,lattice=TRUE)
+reg_sin_inc <- cum2incr(reg_sin_cum)
+plot(reg_sin_inc)
+plot(reg_sin_inc,lattice=TRUE)
 #Case in which we can suppose that  the oldest origin year is not fully developed
 dev_periode <- 1:7
 plot(log(L-1) ~ dev_periode, main="Extrapollation Log-Linéaire des facteurs")
