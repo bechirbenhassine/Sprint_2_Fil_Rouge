@@ -109,16 +109,23 @@ for (i in 2:dim(reg_sin)[1]) {
 #Turn the data to cumulative paid claims
 reg_sin_cum<-reg_sin
 #Estimation with chain ladder method
-install.packages('ChainLadder')
+install.packages('ChainLadder', dependencies = TRUE)
 library(ChainLadder)
-file_re_re_mod_del_year_cum_est<-file_re_re_mod_del_year_cum
-n=ncol(file_re_re_mod_del_year_cum_est)
+reg_sin_cum_est<-reg_sin_cum
+n=ncol(reg_sin_cum_est)
 L=rep(NA,n-1)
-for(j in 1:(n-1)){
-  L[j]=sum(file_re_re_mod_del_year_cum[1:(n-j),j+1])/sum(file_re_re_mod_del_year_cum[1:(n-j),j])
-  file_re_re_mod_del_year_cum_est[(n-j+1):n,j+1]=L[j]*file_re_re_mod_del_year_cum_est[(n-j+1):n,j]
+for(j in 5:(n-1)){
+  L[j]=sum(reg_sin_cum[1:(n-j),j+1])/sum(reg_sin_cum[1:(n-j),j])
+  reg_sin_cum_est[(n-j+1):n,j+1]=L[j]*reg_sin_cum_est[(n-j+1):n,j]
 }
-estimation<-as.matrix(file_re_re_mod_del_year_cum_est)
+k=3
+for (j in 1:4) {
+  L[j]=sum(reg_sin_cum[(j+k+1):(n-j),j+1])/sum(reg_sin_cum[(j+k+1):(n-j),j])
+  reg_sin_cum_est[(n-j+1):n,j+1]=L[j]*reg_sin_cum_est[(n-j+1):n,j]
+  k=k-2
+}
+sum(reg_sin_cum[5:(11),2])/sum(reg_sin_cum[5:11,1])
+estimation<-as.matrix(reg_sin_cum_est)
 dimnames(estimation)[1]
 dimnames(estimation) <- list(origin=rownames(estimation), dev=1:ncol(estimation))
 estimation <- as.triangle(estimation)
