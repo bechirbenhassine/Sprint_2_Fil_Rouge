@@ -42,8 +42,16 @@ reg_sin <- reg_sin[-1,]
 prov    <- prov   [-1,]
 prime   <- prime  [-1,]
 #Deleting the "X" from the rows names
-for(i in 1:dim(file6)[1]) {
-  row.names(file6)[i]<-str_sub(row.names(file6)[i], 2, 5)
+for(i in 1:dim(reg_sin)[1]) {
+  row.names(reg_sin)[i]<-str_sub(row.names(reg_sin)[i], 2, 5)
+}
+
+for(i in 1:dim(prov)[1]) {
+  row.names(prov)[i]<-str_sub(row.names(prov)[i], 2, 5)
+}
+
+for(i in 1:dim(prime)[1]) {
+  row.names(prime)[i]<-str_sub(row.names(prime)[i], 2, 5)
 }
 #First view of the matrix
 submit <- data.frame(file6)
