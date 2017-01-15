@@ -38,7 +38,9 @@ for(i in 1:dim(prime)[2]) {
   names(prime)[i]<-prime[1,i]
 }
 #Deleting the first line as it was set as columns names
-file6<-file6[-1,]
+reg_sin <- reg_sin[-1,]
+prov    <- prov   [-1,]
+prime   <- prime  [-1,]
 #Deleting the "X" from the rows names
 for(i in 1:dim(file6)[1]) {
   row.names(file6)[i]<-str_sub(row.names(file6)[i], 2, 5)
