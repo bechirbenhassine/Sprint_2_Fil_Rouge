@@ -131,12 +131,12 @@ dimnames(estimation) <- list(origin=rownames(estimation), dev=1:ncol(estimation)
 estimation <- as.triangle(estimation)
 plot(estimation)
 #Plotting developments for cumulative data
-file_re_re_mod_del_year_cum_mat<-as.matrix(file_re_re_mod_del_year_cum)
-dimnames(file_re_re_mod_del_year_cum_mat)[1]
-dimnames(file_re_re_mod_del_year_cum_mat) <- list(origin=rownames(file_re_re_mod_del_year_cum_mat), dev=1:ncol(file_re_re_mod_del_year_cum_mat))
-file_re_re_mod_del_year_cum_mat <- as.triangle(file_re_re_mod_del_year_cum_mat)
-plot(file_re_re_mod_del_year_cum_mat)
-plot(file_re_re_mod_del_year_cum_mat,lattice=TRUE)
+reg_sin_cum<-as.matrix(reg_sin_cum)
+dimnames(reg_sin_cum)[1]
+dimnames(reg_sin_cum) <- list(origin=rownames(reg_sin_cum), dev=1:ncol(reg_sin_cum))
+reg_sin_cum <- as.triangle(reg_sin_cum)
+plot(reg_sin_cum)
+plot(reg_sin_cum,lattice=TRUE)
 #Mackchainladder
 M <- MackChainLadder(file_re_re_mod_del_year_cum_mat, est.sigma = "Mack")
 M
