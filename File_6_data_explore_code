@@ -151,7 +151,7 @@ modele <- lm(log(L-1) ~ dev_periode)
 abline(modele)
 coeff <- coef(modele)
 ## extrapolate another 100 dev. period
-extrap <- exp(coeff[1] + c(8:(8 + 100)) * coeff[2]) + 1
+extrap <- exp(coeff[1] + c(12:(12 + 100)) * coeff[2]) + 1
 L_extrap <- prod(extrap)
 L_extrap
 plot(100*(rev(1/cumprod(rev(c(L, extrap[extrap>1.0001]))))), t="b",
