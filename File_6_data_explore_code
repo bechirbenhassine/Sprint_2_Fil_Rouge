@@ -172,3 +172,22 @@ prov <- as.matrix(prov)
 dimnames(prov) <- list(origin=rownames(prov), dev=1:ncol(prov))
 prov <- as.triangle(prov)
 sum(reg_sin_extrap[ ,13] - getLatestCumulative(as.matrix(reg_sin_cum))-getLatestCumulative(as.matrix(prov)))
+#calcul du loss ratio=charge sinistre/primes acquise
+loss_ratio<-prov
+for (i in 1:dim(loss_ratio)[1]) {
+  for (j in 1:dim(loss_ratio)[2]) {
+    if (is.nan((reg_sin[i,j]+prov[i,j])/prime[i,j])==TRUE) {
+      loss_ratio[i,j]=0
+    }
+    else {
+      loss_ratio[i,j]=(reg_sin[i,j]+prov[i,j])/prime[i,j]
+    }
+    
+  }
+}
+dimnames(loss_ratio)[1]
+loss_ratio <- as.matrix(loss_ratio)
+dimnames(loss_ratio) <- list(origin=rownames(loss_ratio), dev=1:ncol(loss_ratio))
+loss_ratio <- as.triangle(loss_ratio)
+plot(loss_ratio)
+plot(loss_ratio,lattice=TRUE)
