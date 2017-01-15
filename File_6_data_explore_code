@@ -106,34 +106,6 @@ for (i in 2:dim(reg_sin)[1]) {
     prime  [i,k]<-NA
   }
 }
-#Deleting years having Top left missing data
-file_re_re_mod_del<-file_re_re_mod    [-1,]
-for (i in 1:3) {
-  file_re_re_mod_del<-file_re_re_mod_del[-1,]
-}
-for (i in 1:12) {
-  file_re_re_mod_del<-file_re_re_mod_del[,-as.integer(dim(file_re_re_mod_del)[2])]
-}
-dim(file_re_re_mod_del)
-#Regroup in a yearly view
-file_re_re_mod_del_year<-file_re_re_mod_del
-for (i in 1:dim(file_re_re_mod_del_year)[1]) {
-  for (k in 1:8) {
-    for (j in 1:dim(file_re_re_mod_del_year)[2]) {
-      if (((colnames(file_re_re_mod_del_year)[j])==k)==TRUE) {
-        file_re_re_mod_del_year[i,j]<-file_re_re_mod_del_year[i,j]+file_re_re_mod_del_year[i,j-1]+file_re_re_mod_del_year[i,j-2]
-      }
-    }
-  }
-}
-for (i in 1:dim(file_re_re_mod_del_year)[1]) {
-  for (j in 1:dim(file_re_re_mod_del_year)[2]) {
-    if ((nchar(colnames(file_re_re_mod_del_year)[j])==1)==FALSE) {
-      file_re_re_mod_del_year<-file_re_re_mod_del_year[,-j]
-    }
-  }
-}
-write.xlsx(submit, file = "fourth_view.xlsx")
 #Turn the data to cumulative paid claims
 file_re_re_mod_del_year_cum<-file_re_re_mod_del_year
 k=0
