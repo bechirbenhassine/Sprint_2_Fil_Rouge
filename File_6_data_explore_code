@@ -166,3 +166,9 @@ for(i in 1:12){
 round(reg_sin_extrap)
 #Calul du PSAP
 sum(reg_sin_extrap[ ,13] - getLatestCumulative(as.matrix(reg_sin_cum)))
+#Calcul du IBNR
+dimnames(prov)[1]
+prov <- as.matrix(prov)
+dimnames(prov) <- list(origin=rownames(prov), dev=1:ncol(prov))
+prov <- as.triangle(prov)
+sum(reg_sin_extrap[ ,13] - getLatestCumulative(as.matrix(reg_sin_cum))-getLatestCumulative(as.matrix(prov)))
