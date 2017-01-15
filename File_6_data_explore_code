@@ -6,6 +6,17 @@ library("xlsx")
 library(stringr)
 #Loading file
 file6<- read.xlsx('TriangleGlobalAutoRC V3bis.xlsx',sheetIndex = 1, header=TRUE, colClasses=NA)
+#Get 3 files : Reg sinistres, provision, primes
+reg_sin <- file6
+prov    <- file6
+prime   <- file6
+k=0
+for (i in 1:(dim(file6)[1]/3)) {
+  reg_sin <- reg_sin[-c(i*3-k*2,i*3-1-k*2)  ,]
+  prov    <- prov   [-c(i*3-k*2,i*3-2-k*2)  ,]
+  prime   <- prime  [-c(i*3-1-k*2,i*3-2-k*2),]
+  k=k+1
+}
 #Changing years into periods (in years)
 file6[,1]=seq(4+1/3,12,1/3)
 #Inversing columns and rows
