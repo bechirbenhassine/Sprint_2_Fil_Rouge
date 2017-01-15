@@ -145,7 +145,7 @@ reg_sin_inc <- cum2incr(reg_sin_cum)
 plot(reg_sin_inc)
 plot(reg_sin_inc,lattice=TRUE)
 #Case in which we can suppose that  the oldest origin year is not fully developed
-dev_periode <- 1:7
+dev_periode <- 1:11
 plot(log(L-1) ~ dev_periode, main="Extrapollation Log-Linéaire des facteurs")
 modele <- lm(log(L-1) ~ dev_periode)
 abline(modele)
