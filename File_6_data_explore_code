@@ -73,11 +73,11 @@ prime    <- prime[,neworder]
 #reordering the data based on the added columns
 ##researching the index for each row
 index<-c(0,0,0,0,0,0,0,0)
-for(i in 5:dim(file_re_mod)[1]) {
+for(i in 5:dim(reg_sin)[1]) {
   k=1
   j=1
-  while (k==1 && j<=dim(file_re_mod)[2]) {
-    if ((as.integer(file_re_mod[i,j])==0)==TRUE) {
+  while (k==1 && j<=dim(reg_sin)[2]) {
+    if ((as.integer(reg_sin[i,j])==0)==TRUE) {
       j=j+1
     }
     else {
