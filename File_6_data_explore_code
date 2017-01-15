@@ -107,14 +107,7 @@ for (i in 2:dim(reg_sin)[1]) {
   }
 }
 #Turn the data to cumulative paid claims
-file_re_re_mod_del_year_cum<-file_re_re_mod_del_year
-k=0
-for (i in 1:(dim(file_re_re_mod_del_year_cum)[1]-1)) {
-  for (j in 2:(dim(file_re_re_mod_del_year_cum)[2]-k)) {
-    file_re_re_mod_del_year_cum[i,j]<-file_re_re_mod_del_year_cum[i,j]+file_re_re_mod_del_year_cum[i,j-1]
-  }
-  k=k+1
-}
+reg_sin_cum<-reg_sin
 #Estimation with chain ladder method
 install.packages('ChainLadder')
 library(ChainLadder)
