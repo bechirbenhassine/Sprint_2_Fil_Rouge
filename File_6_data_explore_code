@@ -159,9 +159,8 @@ plot(100*(rev(1/cumprod(rev(c(L, extrap[extrap>1.0001]))))), t="b",
         xlab="Période de développement", ylab="Développement en % de la perte finale")
 #Triangle par extrapollation
 L1 <- c(L, L_extrap)
-file_re_re_mod_del_year_cum_extrap <- cbind(file_re_re_mod_del_year_cum, final = rep(0, 8))
-for(i in 1:8){
-  file_re_re_mod_del_year_cum_extrap[(8-i+1):n, i+1] <- file_re_re_mod_del_year_cum_extrap[(8-i+1):8,i]*L1[i]
+reg_sin_extrap <- cbind(reg_sin_cum, final = rep(0, 12))
+for(i in 1:12){
+  reg_sin_extrap[(12-i+1):n, i+1] <- reg_sin_extrap[(12-i+1):12,i]*L1[i]
 }
-round(file_re_re_mod_del_year_cum_extrap)
-sum(file_re_re_mod_del_year_cum_extrap[ ,9] - getLatestCumulative(as.matrix(file_re_re_mod_del_year_cum)))
+round(reg_sin_extrap)
