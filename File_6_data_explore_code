@@ -22,7 +22,9 @@ reg_sin[,1] = seq(4,11,1)
 prov   [,1] = seq(4,11,1)
 prime  [,1] = seq(4,11,1)
 #Inversing columns and rows
-file6 <- as.data.frame(t(file6))
+reg_sin <- as.data.frame(t(reg_sin))
+prov    <- as.data.frame(t(prov   ))
+prime   <- as.data.frame(t(prime  ))
 #Changing columns names from Vi into periods added
 for(i in 1:dim(file6)[2]) {
   names(file6)[i]<-file6[1,i]
